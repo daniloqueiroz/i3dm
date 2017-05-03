@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Usage: i3dm compositor
+# Summary: Starts comptom compositor
+set -e
+source ${libs_file}
+
+compton --config ${i3dm_compton_config} -b

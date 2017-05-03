@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Usage: i3dm session
+# Summary: Starts i3dm session
+# Help: it starts all pieces for i3dm session:
+# - configures xrandr
+# - initialize compositor
+# - set wallpapers
+# - enable screensaver
+# - start all programs from ~/.config/autostart
+
+source ${libs_file}
+
+i3dm screenctl --no-wait
+i3dm compositor
+i3dm wallpaper
+i3dm scrensaver -t
+/usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+dex -a ~/.config/autostart/
+
+notify i3dm Session started

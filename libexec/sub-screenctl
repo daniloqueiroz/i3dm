@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Usage: i3dm screenctl
+# Summary: change screen configuration
+# Help: Configure xrandr detected screens
+
+source ${libs_file}
+
+cmd=${1:-udev}
+
+if [ ${cmd} == udev ]; then
+  log_i screen "udev monitor event received..."
+  xrandr > /dev/null
+  sleep 10s
+elif [ ${cmd} == '--ui' ]; then
+  lxrandr
+fi
+
+xrandr --listactivemonitors | grep "HDMI1"
+if [ $? -eq 0 ]; then
+  log_i screen "HDMI monitor detected"
+  notify Screen "HDMI monitor detected"
+  xrandr --output eDP1 --auto --output HDMI1 --auto --right-of eDP1
+else
+  log_i screen "HDMI monitor not detected"
+  notify Screen "HDMI monitor not detected"
+  xrandr --output eDP1 --auto --output HDMI1 --off
+fi

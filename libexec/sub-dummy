@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Usage: i3dm dummy
+# Summary: dummy
+# Help: Does nothing
+set -e
+
+source ${libs_file}
+
+log_i dummy "Dummy command executed"

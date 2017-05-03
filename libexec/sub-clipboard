@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Usage: i3dm clipboard
+# Summary: Clipboard manager
+# Help: For now it only erases the clipboard
+set -e
+
+source ${libs_file}
+
+xsel -bc
+xsel -pc
+xsel -sc
+notify Clipboard "erased"

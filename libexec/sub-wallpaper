@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Usage: i3dm wallpaper
+# Summary: Set random wallpaper for available screens
+
+set -e
+
+source ${libs_file}
+
+feh --bg-scale --bg-max --randomize ${i3dm_wallpapers_dir}/*

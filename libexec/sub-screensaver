@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Usage: i3dm screensaver [option]
+# Summary: Screensaver manager
+# Help: The following options are available
+# -t/toggle - enable/disable screensaver
+# -l/lock - lock screen
+
+source ${libs_file}
+
+function toggle() {
+  LL=$(pgrep light-locker)
+
+  if [ $? == 0 ]; then
+      kill $LL
+      notify Screensaver disabled
+  else
+      /usr/bin/light-locker &
+      notify Screensaver enabled
+  fi
+}
+
+function lock() {
+  light-locker-command -l
+}
+
+
+command="$1"
+
+case "$command" in
+  "toggle" | "-t")
+    toggle
+    ;;
+  "lock" | "-l")
+    lock
+    ;;
+  * )
+    log_e $APP_NAME "Missing parameter: <toogle|lock>"
+    ;;
+esac

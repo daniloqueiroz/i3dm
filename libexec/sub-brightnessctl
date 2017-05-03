@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Usage: i3dm brightnessctl [option]
+# Summary: Controls screen brightness
+# Help: available options:
+# up - brightness up
+# down - brightness down
+set -e
+
+source ${libs_file}
+
+case $1 in
+    up)
+        xbacklight -inc 10
+        ;;
+    down)
+        xbacklight -dec 10
+        ;;
+    *)
+        echo "Usage: $0 [up|down]"
+        exit 1
+        ;;
+esac

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Usage: i3dm volumectl [option]
+# Summary: Controls volume
+# Help: available options:
+# up - turn volume up
+# down - turn volume down
+# mute - toggle audio output mute
+# mic - toggle mic input
+set -e
+
+source ${libs_file}
+
+SINK=$(pactl info | awk '/^Default Sink:/ { print $3 }')
+SOURCE=$(pactl info | awk '/^Default Source:/ { print $3 }')
+
+case $1 in
+    up)
+        pactl set-sink-volume "@DEFAULT_SINK@" +2%
+        notify Volume "Up +2%"
+        ;;
+    down)
+        pactl set-sink-volume "@DEFAULT_SINK@" -2%
+        notify Volume "Down -2%"
+        ;;
+    mute)
+        pactl set-sink-mute "@DEFAULT_SINK@" toggle
+        notify Volume "Output mute toggle"
+        ;;
+    mic)
+        pactl set-source-mute "@DEFAULT_SOURCE@" toggle
+        notify Volume "Microfone mute toggle"
+        ;;
+    --ui)
+        pavucontrol
+        ;;
+    *)
+        echo "Usage: $0 [up|down|mute|mic]"
+        exit 1
+        ;;
+esac

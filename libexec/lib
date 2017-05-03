@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+## Non auto related common libs
+# output helpers
+_RED='\033[0;31m'
+_GREEN='\033[0;32m'
+_MAGENTA='\033[0;35m'
+_BLUE='\033[0;94m'
+_NC='\033[0m' # No Color
+
+function log_i() {
+  tag=$1
+  shift
+  echo -e "${_debug}[$tag] debug:${_NC} $*"
+}
+
+function log_i() {
+  tag=$1
+  shift
+  echo -e "${_GREEN}[$tag] info:${_NC} $*"
+}
+
+function log_w() {
+  tag=$1
+  shift
+  echo -e "${_MAGENTA}[$tag] warn:${_NC} $*"
+}
+
+function log_e() {
+  tag=$1
+  shift
+  echo -e "${_RED}[$tag] error:${_NC} $*"
+}
+
+function notify() {
+  tag=$1
+  shift
+  notify-send -t 500 -u normal $tag "$*"
+}
+
+function _find_root() {
+  local SCRIPT=$(readlink -f $0)
+  local SCRIPTPATH=`dirname $SCRIPT`
+  export ROOT_DIR=${SCRIPTPATH}/../
+}
+
+# YAML config parser
+function _parse_yaml() {
+   local prefix=${2:="conf"}
+   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+    eval $(
+    sed -ne "s|^\($s\):|\1|" \
+          -e "s|^\($s\)\($w\)$s:$s[\"']\(.*\)[\"']$s\$|\1$fs\2$fs\3|p" \
+          -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
+     awk -F$fs '{
+        indent = length($1)/2;
+        vname[indent] = $2;
+        for (i in vname) {if (i > indent) {delete vname[i]}}
+        if (length($3) > 0) {
+           vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+           printf("%s%s%s=\"%s\"\n", "'${prefix}_'",vn, $2, $3);
+        }
+     }'
+    )
+}
+
+function _load_extras() {
+  for extra in $(find ${libexec_path} -name "_*"); do
+    source ${extra}
+  done
+}
+
+# is debug on?
+if [ -n "${1}" ] && [ $1 == '-v' ]; then
+  set -x
+  shift
+fi
+
+_find_root
+_load_extras
