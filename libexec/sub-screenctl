@@ -15,7 +15,7 @@ elif [ ${cmd} == '--ui' ]; then
   lxrandr
 fi
 
-xrandr --listactivemonitors | grep "HDMI1"
+xrandr | grep "HDMI1 connected"
 if [ $? -eq 0 ]; then
   log_i screen "HDMI monitor detected"
   notify Screen "HDMI monitor detected"

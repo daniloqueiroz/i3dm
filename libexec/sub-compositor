@@ -4,4 +4,6 @@
 set -e
 source ${libs_file}
 
-compton --config ${i3dm_compton_config} -b
+compton --config ${i3dm_compton_config} -b 
+
+notify Compositor compton started
