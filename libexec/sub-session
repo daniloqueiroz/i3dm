@@ -16,7 +16,6 @@ source ${libs_file}
 /bin/bash ${ROOT_DIR}/i3dm screensaver -t
 
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
-/usr/bin/nm-applet
 dex -a ~/.config/autostart/
 
 
