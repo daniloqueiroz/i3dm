@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
-# Usage: i3dm launch [option]
+# Usage: i3dm launch
 # Summary: App/file launcher & window switcher
-# Help: The following options are available
-# -f/file - open file mode
-# -w/window - switch window mode
-# -a/app - launch app mode
 
-set -x
+set -e
 
 source ${libs_file}
 

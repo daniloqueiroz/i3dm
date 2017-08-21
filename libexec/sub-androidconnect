@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Usage: i3dm androidconnect
+# Summary: Android desktop integration
+
+set -e
+
+source ${libs_file}
+
+/usr/lib/kdeconnectd &
+sleep 20s
+/usr/bin/indicator-kdeconnect &
+
+notify "Android Connect" "KDEConnect Started"

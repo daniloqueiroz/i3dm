@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Usage: i3dm input
+# Summary: Adjust input devices
+
+set -e
+
+source ${libs_file}
+
+
+# fix keyboard layout
+/usr/bin/setxkbmap -model thinkpad60 -layout br
+# Synaptics Touchpad (vertical and horizontal natural scrolling)
+TOUCHPAD_ID=11 # xinput list
+xinput --set-prop ${TOUCHPAD_ID} "Synaptics Two-Finger Scrolling" 1 1
+xinput --set-prop ${TOUCHPAD_ID} "Synaptics Scrolling Distance" -99 -99
