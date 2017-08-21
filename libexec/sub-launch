@@ -10,10 +10,4 @@ set -x
 
 source ${libs_file}
 
-pgrep albert
-if [ $? -ne 0 ]; then
-  /usr/bin/albert &
-  notify "Launcher" "Starting Albert"
-  sleep 2s
-fi
 /usr/bin/albert show
