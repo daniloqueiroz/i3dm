@@ -6,26 +6,14 @@
 # -w/window - switch window mode
 # -a/app - launch app mode
 
-set -e
+set -x
 
 source ${libs_file}
 
-
-rofi_cmd="rofi -config ${i3dm_rofi_conf}"
-
-command=$1
-
-case "$command" in
-  "app" | "-a")
-    ${rofi_cmd} -modi 'run,ssh' -show run
-    ;;
-  "file" | "-f")
-    ${rofi_cmd} -modi "file:${libexec_path}/rofi-file-browser.sh" -show file
-    ;;
-  "window" | "-w")
-    ${rofi_cmd} -modi 'window' -show window
-    ;;
-  *)
-    log_e $APP_NAME "Missing parameter: <run|file|window>"
-    ;;
-esac
+pgrep albert
+if [ $? -ne 0 ]; then
+  /usr/bin/albert &
+  notify "Launcher" "Starting Albert"
+  sleep 2s
+fi
+/usr/bin/albert show
