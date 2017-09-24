@@ -18,8 +18,8 @@ dex -a ~/.config/autostart/
 /bin/bash ${ROOT_DIR}/i3dm screenctl --no-wait
 /bin/bash ${ROOT_DIR}/i3dm compositor
 /bin/bash ${ROOT_DIR}/i3dm wallpaper
-/bin/bash ${ROOT_DIR}/i3dm screensaver -t
 /bin/bash ${ROOT_DIR}/i3dm androidconnect
+/bin/bash ${ROOT_DIR}/i3dm screensaver -e
 
 notify i3dm Session started
 sleep 30

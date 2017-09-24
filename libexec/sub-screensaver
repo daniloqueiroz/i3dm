@@ -2,15 +2,26 @@
 # Usage: i3dm screensaver [option]
 # Summary: Screensaver manager
 # Help: The following options are available
+# -e/enable - ensure screensaver is running
 # -t/toggle - enable/disable screensaver
 # -l/lock - lock screen
 
 source ${libs_file}
 
+function enable_screensaver(){
+  LL=$(pgrep light-locker)
+
+  if [ $? -ne 0 ]; then
+      /usr/bin/light-locker &
+      notify Screensaver enabled
+  fi
+
+}
+
 function toggle() {
   LL=$(pgrep light-locker)
 
-  if [ $? == 0 ]; then
+  if [ $? -eq 0 ]; then
       kill $LL
       notify Screensaver disabled
   else
@@ -27,6 +38,9 @@ function lock() {
 command="$1"
 
 case "$command" in
+  "enable" | "-e")
+    enable_screensaver
+    ;;
   "toggle" | "-t")
     toggle
     ;;
