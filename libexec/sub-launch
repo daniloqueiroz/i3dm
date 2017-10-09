@@ -1,9 +1,28 @@
 #!/usr/bin/env bash
-# Usage: i3dm launch
+# Usage: i3dm launch [option]
 # Summary: App/file launcher & window switcher
+# Help: The following options are available
+# -p/pass - password store mode
+# -w/window - switch window mode
+# -a/app - launch app mode
 
 set -e
 
 source ${libs_file}
 
-/usr/bin/albert show
+command=$1
+
+case "$command" in
+  "app" | "-a")
+    i3-dmenu-desktop --dmenu='dmenu -i -b -p "run >"'
+    ;;
+  "pass" | "-p")
+    passmenu -b -i -p "pass > "
+    ;;
+  "window" | "-w")
+    quickswitch --dmenu='dmenu -i -p "window >" -l 3'
+    ;;
+  *)
+    log_e $APP_NAME "Missing parameter: <run|file|window>"
+    ;;
+esac
