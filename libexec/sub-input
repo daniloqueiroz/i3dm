@@ -7,8 +7,6 @@ set -x
 source ${libs_file}
 
 
-# fix keyboard layout
-/usr/bin/setxkbmap -model thinkpad60 -layout br
 # Synaptics Touchpad (vertical and horizontal natural scrolling)
 xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Two-Finger Scrolling" 1 1
 xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Scrolling Distance" -99 -99
@@ -16,3 +14,14 @@ xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Scrolling Distance" -9
 xinput --set-prop "Synaptics TM2722-001" "Synaptics Two-Finger Scrolling" 1 1
 xinput --set-prop "Synaptics TM2722-001" "Synaptics Scrolling Distance" -99 -99
 
+xinput --set-prop "Logitech M325" "libinput Natural Scrolling Enabled" 1
+
+# fix keyboard layout
+layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+if [ $layout == 'us' ]; then
+  layout='br'
+else
+  layout='us'
+fi
+notify Input setting keyboard layout to $layout
+setxkbmap -model thinkpad60 -layout $layout
