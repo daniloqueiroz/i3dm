@@ -14,7 +14,10 @@ xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Scrolling Distance" -9
 xinput --set-prop "Synaptics TM2722-001" "Synaptics Two-Finger Scrolling" 1 1
 xinput --set-prop "Synaptics TM2722-001" "Synaptics Scrolling Distance" -99 -99
 
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+
 xinput --set-prop "Logitech M325" "libinput Natural Scrolling Enabled" 1
+xinput --set-prop 10 "libinput Natural Scrolling Enabled" 1
 
 # fix keyboard layout
 layout=$(setxkbmap -query | grep layout | awk '{print $2}')

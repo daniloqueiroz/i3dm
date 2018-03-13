@@ -15,13 +15,22 @@ elif [ ${cmd} == '--ui' ]; then
   lxrandr
 fi
 
-xrandr | grep "HDMI1 connected"
+xrandr | grep "HDMI2 connected"
 if [ $? -eq 0 ]; then
   log_i screen "HDMI monitor detected"
   notify Screen "HDMI monitor detected"
-  xrandr --output eDP1 --auto --output HDMI1 --auto --right-of eDP1
+  xrandr --output eDP1 --auto --output HDMI2 --auto --right-of eDP1
 else
   log_i screen "HDMI monitor not detected"
   notify Screen "HDMI monitor not detected"
-  xrandr --output eDP1 --auto --output HDMI1 --off
+  xrandr --output eDP1 --auto --output HDMI2 --off
 fi
+
+# Launch bar
+# Terminate already running bar instances
+killall -q polybar
+# Wait until the processes have been shut down
+while pgrep -x polybar >/dev/null; do sleep 1; done
+# Bar is the name set in the polybar config, so if you change it, you have to change it here too.
+polybar -c ${i3dm_polybar_conf} bar
+notify Bar Polybar started
