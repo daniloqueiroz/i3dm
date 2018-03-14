@@ -34,3 +34,6 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 # Bar is the name set in the polybar config, so if you change it, you have to change it here too.
 polybar -c ${i3dm_polybar_conf} bar
 notify Bar Polybar started
+
+
+feh --bg-fill --randomize ${i3dm_wallpapers_dir}/*
