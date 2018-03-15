@@ -14,10 +14,10 @@ command=$1
 
 case "$command" in
   "app" | "-a")
-    i3-dmenu-desktop --dmenu='dmenu -i -p "run >"'
+    i3-dmenu-desktop --dmenu='dmenu -b -i -p "run >"'
     ;;
   "pass" | "-p")
-    passmenu -i -p "pass > "
+    passmenu -b -i -p "pass > "
     ;;
   "window" | "-w")
     quickswitch --dmenu='dmenu -i -p "window >" -l 3'
