@@ -3,3 +3,5 @@ i3_conf_dir=~/.config/i3
 i3dm_compton_config=${i3_conf_dir}/compton.conf
 i3dm_wallpapers_dir=${i3_conf_dir}/wallpapers
 i3dm_polybar_conf=${i3_conf_dir}/polybar.conf
+
+EXT_MONITOR="HDMI1"

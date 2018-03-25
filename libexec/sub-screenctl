@@ -15,15 +15,15 @@ elif [ ${cmd} == '--ui' ]; then
   lxrandr
 fi
 
-xrandr | grep "HDMI2 connected"
+xrandr | grep "${EXT_MONITOR} connected"
 if [ $? -eq 0 ]; then
   log_i screen "HDMI monitor detected"
   notify Screen "HDMI monitor detected"
-  xrandr --output eDP1 --auto --output HDMI2 --auto --right-of eDP1
+  xrandr --output eDP1 --auto --output ${EXT_MONITOR} --auto --right-of eDP1
 else
   log_i screen "HDMI monitor not detected"
   notify Screen "HDMI monitor not detected"
-  xrandr --output eDP1 --auto --output HDMI2 --off
+  xrandr --output eDP1 --auto --output ${EXT_MONITOR} --off
 fi
 
 # Launch bar
