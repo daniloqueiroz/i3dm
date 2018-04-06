@@ -24,7 +24,7 @@ layout=$(setxkbmap -query | grep layout | awk '{print $2}')
 if [ $layout == 'us' ]; then
   layout='br'
 else
-  layout='us'
+  layout='us -variant intl'
 fi
 notify Input setting keyboard layout to $layout
 setxkbmap -model thinkpad60 -layout $layout
