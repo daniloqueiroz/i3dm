@@ -3,27 +3,29 @@
 # Summary: change screen configuration
 # Help: Configure xrandr detected screens
 
+set -x
 source ${libs_file}
 
 cmd=${1:-udev}
 
 if [ ${cmd} == udev ]; then
   log_i screen "udev monitor event received..."
-  xrandr > /dev/null
+  mons > /dev/null
   sleep 10s
 elif [ ${cmd} == '--ui' ]; then
   lxrandr
+  exit
 fi
 
-xrandr | grep "${EXT_MONITOR} connected"
-if [ $? -eq 0 ]; then
-  log_i screen "HDMI monitor detected"
-  notify Screen "HDMI monitor detected"
-  xrandr --output eDP1 --auto --output ${EXT_MONITOR} --auto --right-of eDP1
+mons_num=$(mons | grep Monitors | awk '{print $2}')
+if [ ${mons_num} -gt 1 ]; then
+  log_i screen "External monitor detected"
+  notify Screen "External monitor detected"
+  mons -e ${MON_SIDE}
 else
-  log_i screen "HDMI monitor not detected"
-  notify Screen "HDMI monitor not detected"
-  xrandr --output eDP1 --auto --output ${EXT_MONITOR} --off
+  log_i screen "External monitor not detected"
+  notify Screen "External monitor not detected"
+  mons -o
 fi
 
 # Launch bar
