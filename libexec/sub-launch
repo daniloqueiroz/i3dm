@@ -10,6 +10,12 @@ set -e
 
 source ${libs_file}
 
+function dmenu_ddg {
+    query="$(dmenu -b -i -p "websearch >")"
+    [ -n "${query}" ] && exec xdg-open "https://duckduckgo.com/?q=${query}"
+}
+
+
 command=$1
 
 case "$command" in
@@ -21,6 +27,9 @@ case "$command" in
     ;;
   "window" | "-w")
     quickswitch --dmenu='dmenu -i -p "window >" -l 3'
+    ;;
+  "websearch" | "-s")
+    dmenu_ddg
     ;;
   *)
     log_e $APP_NAME "Missing parameter: <run|file|window>"
