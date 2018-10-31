@@ -10,8 +10,10 @@ set -e
 
 source ${libs_file}
 
+DMENU_COLORS='-nb "#0C1923" -nf "#003246" -sb "#0C1923" -sf "#0081B6"'
+
 function dmenu_ddg {
-    query="$(dmenu -b -i -p "websearch >")"
+    query="$(dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6')"
     [ -n "${query}" ] && exec xdg-open "https://duckduckgo.com/?q=${query}"
 }
 
@@ -20,13 +22,13 @@ command=$1
 
 case "$command" in
   "app" | "-a")
-    i3-dmenu-desktop --dmenu='dmenu -b -i -p "run >"'
+    i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'"
     ;;
   "pass" | "-p")
-    passmenu -b -i -p "pass > "
+    passmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'
     ;;
   "window" | "-w")
-    quickswitch --dmenu='dmenu -i -p "window >" -l 3'
+    quickswitch --dmenu="dmenu -i -p '>>' -l 2 -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'"
     ;;
   "websearch" | "-s")
     dmenu_ddg
