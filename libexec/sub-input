@@ -6,25 +6,29 @@ set -x
 
 source ${libs_file}
 
-
-# Synaptics Touchpad (vertical and horizontal natural scrolling)
-xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Two-Finger Scrolling" 1 1
-xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Scrolling Distance" -99 -99
-
+# Home
+## touchpad 
 xinput --set-prop "Synaptics TM2722-001" "Synaptics Two-Finger Scrolling" 1 1
 xinput --set-prop "Synaptics TM2722-001" "Synaptics Scrolling Distance" -99 -99
-
-xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
-
+xinput --set-prop "Synaptics TM2722-001" "libinput Natural Scrolling Enabled" 1
+## Mouse
 xinput --set-prop "Logitech M325" "libinput Natural Scrolling Enabled" 1
-xinput --set-prop 10 "libinput Natural Scrolling Enabled" 1
+
+# Work
+## touchpad
+xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Two-Finger Scrolling" 1 1
+xinput --set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Scrolling Distance" -99 -99
+xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+## mouse
+xinput --set-prop "Logitech USB Receiver Mouse" "libinput Natural Scrolling Enabled" 1
 
 # fix keyboard layout
 layout=$(setxkbmap -query | grep layout | awk '{print $2}')
 if [ $layout == 'us' ]; then
   layout='br'
 else
-  layout='us -variant intl'
+  layout='us'
+  #layout='us -variant intl'
 fi
 notify Input setting keyboard layout to $layout
 setxkbmap -model thinkpad60 -layout $layout
