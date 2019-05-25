@@ -25,7 +25,7 @@ case "$command" in
     i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'"
     ;;
   "pass" | "-p")
-    selected=$(find ~/.password-store/ -name '*.gpg' | awk -F'/' 'NF && NF-1 { print $(NF-1)"/"$NF }' | awk -F'.' '{print $1}' | dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6')
+    selected=$(find ~/.password-store/ -name '*.gpg' | awk -F'/' 'NF && NF-1 { print $(NF-1)"/"$NF }' | awk -F'.gpg' '{print $1}' | dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6')
     pass --clip ${selected}
     #passmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'
     ;;

@@ -28,4 +28,6 @@ else
   mons -o
 fi
 
+compton --config ${i3dm_compton_config} -b
 feh --bg-fill --randomize ${i3dm_wallpapers_dir}/*
+
