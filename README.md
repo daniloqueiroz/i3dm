@@ -8,16 +8,15 @@ It's based on existing tools from other DE, such LXDE and MATE.
 # Requirements
 
 It depends on the following archlinux packages:
- * rofi - for application launcher
+ * dmenu - for application launcher
  * feh - for wallpapers
  * compton - for window composition
  * lightlocker - for screen lock
- * dex - for .config/autostart/\*.desktop files
+ * lxsession- for .config/autostart/\*.desktop files, polkit
  * xsel -
  * xbacklight
  * pavucontrol
  * lxrandr
- * mate-polkit
 
 # i3 Configuration
 

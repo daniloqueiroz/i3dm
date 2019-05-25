@@ -1,7 +1,0 @@
-
-specify packages dependencies
-dmenu, quickswitch, feh, compton, lightlocker, dex, xsel, xbacklight, pavucontrol, lxrandr, mate-polkit, mons
-
-specify extra files (acpi setup, systemd for screenlock, udev monitor event)
-
-configuration file documentation
