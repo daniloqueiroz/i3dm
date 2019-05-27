@@ -10,32 +10,19 @@ set -e
 
 source ${libs_file}
 
-DMENU_COLORS='-nb "#0C1923" -nf "#003246" -sb "#0C1923" -sf "#0081B6"'
-
-function dmenu_ddg {
-    query="$(dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6')"
-    [ -n "${query}" ] && exec xdg-open "https://duckduckgo.com/?q=${query}"
-}
-
-
 command=$1
 
 case "$command" in
   "app" | "-a")
-    i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'"
+    i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
     ;;
   "pass" | "-p")
-    selected=$(find ~/.password-store/ -name '*.gpg' | awk -F'/' 'NF && NF-1 { print $(NF-1)"/"$NF }' | awk -F'.gpg' '{print $1}' | dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6')
-    pass --clip ${selected}
-    #passmenu -b -i -p '>>' -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'
+    passmenu -b -i -p '>>'  -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'
     ;;
   "window" | "-w")
-    quickswitch --dmenu="dmenu -i -p '>>' -l 2 -nb '#0C1923' -nf '#005274' -sb '#0C1923' -sf '#0081B6'"
-    ;;
-  "websearch" | "-s")
-    dmenu_ddg
+    quickswitch --dmenu="dmenu -i -p '>>' -l 2 -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'" 
     ;;
   *)
-    log_e $APP_NAME "Missing parameter: <run|file|window>"
+    log_e $APP_NAME "Missing parameter: <app|pass|window>"
     ;;
 esac
