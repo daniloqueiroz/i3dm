@@ -34,7 +34,7 @@ function log_e() {
 function notify() {
   tag=$1
   shift
-  notify-send -t 500 -u normal $tag "$*"
+  notify-send -t 155555 -u normal $tag "$*"
 }
 
 function _find_root() {
