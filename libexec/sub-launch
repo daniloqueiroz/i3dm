@@ -20,7 +20,7 @@ case "$command" in
     passmenu -b -i -p '>>'  -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'
     ;;
   "window" | "-w")
-    quickswitch --dmenu="dmenu -i -p '>>' -l 2 -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'" 
+    quickswitch --dmenu="dmenu -i -p '>>' -l 3 -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'" 
     ;;
   *)
     log_e $APP_NAME "Missing parameter: <app|pass|window>"
