@@ -10,19 +10,24 @@ set -e
 
 source ${libs_file}
 
-command=$1
+function launcher() {
+  case "$command" in
+    "app" | "-a")
+      i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
+      ;;
+    "pass" | "-p")
+      passmenu --type -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'
+      ;;
+    "window" | "-w")
+      quickswitch --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
+      ;;
+    *)
+      list=("app\npass\nwindow")
+      command=$(echo -e "$list" | dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4')
+      launcher
+      ;;
+  esac
+}
 
-case "$command" in
-  "app" | "-a")
-    i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
-    ;;
-  "pass" | "-p")
-    passmenu -b -i -p '>>'  -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'
-    ;;
-  "window" | "-w")
-    quickswitch --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'" 
-    ;;
-  *)
-    log_e $APP_NAME "Missing parameter: <app|pass|window>"
-    ;;
-esac
+command=$1
+launcher
