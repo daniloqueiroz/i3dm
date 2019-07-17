@@ -12,17 +12,20 @@ source ${libs_file}
 
 function launcher() {
   case "$command" in
-    "app" | "-a")
+    "apps" | "-a")
       i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
       ;;
     "pass" | "-p")
       passmenu --type -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'
       ;;
-    "window" | "-w")
+    "windows" | "-w")
       quickswitch --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
       ;;
+    "suspend")
+      systemctl suspend
+      ;;
     *)
-      list=("app\npass\nwindow")
+      list=("apps\npass\nwindows\nsuspend")
       command=$(echo -e "$list" | dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4')
       launcher
       ;;
