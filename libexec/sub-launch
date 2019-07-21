@@ -10,23 +10,35 @@ set -e
 
 source ${libs_file}
 
+DMENU_PARAMS="-b -i -p ❯ -nb #0C1923 -nf #005D69 -sb #0C1923 -sf #00BCD4"
+
 function launcher() {
   case "$command" in
     "apps" | "-a")
-      i3-dmenu-desktop --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
+      i3-dmenu-desktop --dmenu="dmenu ${DMENU_PARAMS}"
       ;;
     "pass" | "-p")
-      passmenu --type -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'
+      passmenu --type ${DMENU_PARAMS}
       ;;
     "windows" | "-w")
-      quickswitch --dmenu="dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4'"
+      quickswitch --dmenu="dmenu ${DMENU_PARAMS}"
       ;;
     "suspend")
       systemctl suspend
       ;;
+    "kill")
+      processList=$(ps -u danilo -o pid= -o comm=)
+      selection=$(echo -e "$processList" | dmenu ${DMENU_PARAMS})
+      [[ -z "$selection" ]] && exit
+
+      pid=$(awk '{print $1}' <<< "$selection" | tr '\n' ' ')
+      [[ -z "$pid" ]] && exit
+
+      kill "$pid"
+      ;;
     *)
-      list=("apps\npass\nwindows\nsuspend")
-      command=$(echo -e "$list" | dmenu -b -i -p '>>' -nb '#0C1923' -nf '#005D69' -sb '#0C1923' -sf '#00BCD4')
+      list=("apps\npass\nwindows\nfile\nsuspend\nkill")
+      command=$(echo -e "$list" | dmenu ${DMENU_PARAMS})
       launcher
       ;;
   esac
