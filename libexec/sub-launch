@@ -7,6 +7,7 @@
 # -a/app - launch app mode
 
 set -e
+set -x
 
 source ${libs_file}
 
@@ -27,7 +28,7 @@ function launcher() {
       systemctl suspend
       ;;
     "kill")
-      processList=$(ps -u danilo -o pid= -o comm=)
+      processList=$(ps -u $(whoami) -o pid= -o comm=)
       selection=$(echo -e "$processList" | dmenu ${DMENU_PARAMS})
       [[ -z "$selection" ]] && exit
 
