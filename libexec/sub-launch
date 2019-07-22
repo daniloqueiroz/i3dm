@@ -7,7 +7,6 @@
 # -a/app - launch app mode
 
 set -e
-set -x
 
 source ${libs_file}
 
@@ -38,7 +37,7 @@ function launcher() {
       kill "$pid"
       ;;
     *)
-      list=("apps\npass\nwindows\nfile\nsuspend\nkill")
+      list=("apps\npass\nwindows\nsuspend\nkill")
       command=$(echo -e "$list" | dmenu ${DMENU_PARAMS})
       launcher
       ;;
