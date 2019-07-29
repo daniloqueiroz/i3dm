@@ -12,6 +12,20 @@ source ${libs_file}
 
 DMENU_PARAMS="-b -i -p ❯ -nb #0C1923 -nf #005D69 -sb #0C1923 -sf #00BCD4"
 
+function switchwindow() {
+  ids=$(xprop -root |grep _NET_CLIENT_LIST_STACKING\(WINDOW\) |cut -d"#" -f2| tr -d " "|tr "," " ")
+
+  for id in $ids; do
+    names="$names $(xprop -id $id| grep WM_CLASS |tr -d '" '|cut -d "=" -f2|awk -F "," '{print $NF}')($id)"
+  done
+
+  # Show Open window class names as a dmenu option
+  target=$(echo $names | tr " " "\n" | dmenu $DMENU_PARAMS | grep -Eo "\(.*\)" | tr -d "()" )
+
+  # switch to chosen window
+  i3-msg [id="$target"] focus
+}
+
 function launcher() {
   case "$command" in
     "apps" | "-a")
@@ -21,7 +35,7 @@ function launcher() {
       passmenu --type ${DMENU_PARAMS}
       ;;
     "windows" | "-w")
-      quickswitch --dmenu="dmenu ${DMENU_PARAMS}"
+      switchwindow
       ;;
     "suspend")
       systemctl suspend
