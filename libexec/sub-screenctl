@@ -35,7 +35,7 @@ case $cmd in
     ;;
   mirror)
     if [ $mons_num -eq 2 ]; then
-      mons -n
+      mons -m
     else
       log_i screen "Not possible to mirror screen"
       notify Screen "Not possible to mirror screen"
