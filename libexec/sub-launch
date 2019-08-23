@@ -11,7 +11,7 @@ set -x
 
 source ${libs_file}
 
-DMENU_PARAMS="-b -i -p ❯ -nb #0C1923 -nf #005D69 -sb #0C1923 -sf #00BCD4"
+DMENU_PARAMS="-b -i -p ❯ -fn Hack-8 -nb #0C1923 -nf #005D69 -sb #0C1923 -sf #00BCD4"
 
 function switchwindow() {
   ids=$(xprop -root |grep _NET_CLIENT_LIST_STACKING\(WINDOW\) |cut -d"#" -f2| tr -d " "|tr "," " ")
