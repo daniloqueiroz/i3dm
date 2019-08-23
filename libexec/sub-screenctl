@@ -13,6 +13,7 @@ function auto_monitor() {
     mons -e ${MON_SIDE}
   elif [ ${mons_num} -eq 3 ]; then
     xrandr --output eDP-1 --mode 1920x1080 --output DP-1 --auto --right-of eDP-1 --output DP-2 --auto --rotate left --right-of DP-1
+    xrandr --output DP-1 --scale 0.8x0.8 --output DP-2 --scale 0.8x0.8 --dpi 221
   else
     notify Screen "External monitor not detected"
     mons -o
