@@ -3,7 +3,7 @@
 # Summary: change screen configuration
 # Help: Configure xrandr detected screens
 
-set -x
+set -xe
 source ${libs_file}
 
 cmd=${1:-auto}
@@ -12,10 +12,13 @@ function auto_monitor() {
   if [ ${mons_num} -eq 2 ]; then
     mons -e ${MON_SIDE}
   elif [ ${mons_num} -eq 3 ]; then
-    xrandr --output eDP-1 --mode 1920x1080 --output DP-1 --auto --right-of eDP-1 --output DP-2 --auto --rotate left --right-of DP-1
-    xrandr --output DP-1 --scale 0.8x0.8 --output DP-2 --scale 0.8x0.8 --dpi 221
+    xrandr -s 0
+    xrandr \
+        --output eDP-1 --mode 1920x1080 \
+        --output DP-1 --auto --scale 0.8x0.8 --right-of eDP-1 \
+        --output DP-2 --right-of DP-1 --auto --scale 0.8x0.8 --rotate left \
+        --dpi 221
   else
-    notify Screen "External monitor not detected"
     mons -o
   fi
 }
@@ -27,7 +30,6 @@ function compositor() {
 
 
 mons_num=$(mons | grep Monitors | awk '{print $2}')
-notify Screen "${mons_num} monitor(s) detected"
 
 case $cmd in
   ui|--ui)
@@ -54,3 +56,5 @@ case $cmd in
     compositor
   ;;
 esac
+
+notify Screen "${mons_num} monitor(s) detected"
