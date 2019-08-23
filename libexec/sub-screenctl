@@ -6,12 +6,9 @@
 set -x
 source ${libs_file}
 
-mons_num=$(mons | grep Monitors | awk '{print $2}')
 cmd=${1:-auto}
 
 function auto_monitor() {
-  notify Screen "${mons_num} external monitor(s) detected"
-
   if [ ${mons_num} -eq 2 ]; then
     mons -e ${MON_SIDE}
   elif [ ${mons_num} -eq 3 ]; then
@@ -27,6 +24,9 @@ function compositor() {
   feh --bg-fill --randomize ${i3dm_wallpapers_dir}/*
 }
 
+
+mons_num=$(mons | grep Monitors | awk '{print $2}')
+notify Screen "${mons_num} monitor(s) detected"
 
 case $cmd in
   ui|--ui)
