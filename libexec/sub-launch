@@ -52,7 +52,7 @@ function launcher() {
       kill "$pid"
       ;;
     monitor)
-      list=("auto\nui\nmirror")
+      list=("auto\nsingle\nui\nmirror")
       command=$(echo -e "$list" | dmenu ${DMENU_PARAMS})
       $(dirname $0)/../i3dm screenctl $command
       ;;

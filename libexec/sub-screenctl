@@ -12,15 +12,19 @@ function auto_monitor() {
   if [ ${mons_num} -eq 2 ]; then
     mons -e ${MON_SIDE}
   elif [ ${mons_num} -eq 3 ]; then
-    xrandr -s 0
     xrandr \
         --output eDP-1 --mode 1920x1080 \
-        --output DP-1 --auto --scale 0.8x0.8 --right-of eDP-1 \
-        --output DP-2 --right-of DP-1 --auto --scale 0.8x0.8 --rotate left \
+        --scale 1x1 \
+        --output DP-1 --mode 3840x2160 --right-of eDP-1 \
+        --scale 0.8x0.8 \
+        --output DP-2 --mode 3840x2160 --right-of DP-1 --rotate left \
+        --scale 0.8x0.8 \
         --dpi 221
-  else
-    mons -o
   fi
+}
+
+function reset_xrandr() {
+    xrandr -s 0
 }
 
 function compositor() {
@@ -44,17 +48,14 @@ case $cmd in
       notify Screen "Not possible to mirror screen"
     fi
     ;;
-  udev)
-    log_i screen "udev monitor event received..."
-    mons > /dev/null
-    sleep 10s
+  single|reset)
+    reset_xrandr
+    ;;
+  auto|udev|*)
+    reset_xrandr
     auto_monitor
     compositor
     ;;
-  auto|*)
-    auto_monitor
-    compositor
-  ;;
 esac
 
 notify Screen "${mons_num} monitor(s) detected"
