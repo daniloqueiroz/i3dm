@@ -17,6 +17,7 @@ It depends on the following archlinux packages:
  * xbacklight
  * pavucontrol
  * lxrandr
+ * st & tmux
 
 # i3 Configuration
 

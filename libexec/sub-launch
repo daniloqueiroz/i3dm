@@ -6,7 +6,6 @@
 # -w/window - switch window mode
 # -a/app - launch app mode
 
-set -e
 set -x
 
 source ${libs_file}
@@ -29,13 +28,13 @@ function switchwindow() {
 
 function launcher() {
   case "$command" in
-    "apps" | "-a")
+    "apps")
       i3-dmenu-desktop --dmenu="dmenu ${DMENU_PARAMS}"
       ;;
-    "pass" | "-p")
+    "pass")
       passmenu --type ${DMENU_PARAMS}
       ;;
-    "windows" | "-w")
+    "windows")
       switchwindow
       ;;
     "suspend")
@@ -51,13 +50,23 @@ function launcher() {
 
       kill "$pid"
       ;;
-    monitor)
+    "terminal" | "console")
+      tmux has-session -t bz
+      if [ $? -eq 0 ]; then
+        TMUX_CMD="tmux attach-session -t bz"
+      else
+        TMUX_CMD="tmux new -s bz"
+      fi
+
+      /usr/bin/st -f "Source Code Pro:size=10" -T terminal $TMUX_CMD
+      ;;
+    "monitor")
       list=("auto\nsingle\nui\nmirror")
       command=$(echo -e "$list" | dmenu ${DMENU_PARAMS})
       $(dirname $0)/../i3dm screenctl $command
       ;;
     *)
-      list=("apps\npass\nwindows\nsuspend\nmonitor\nkill")
+      list=("apps\npass\nwindows\nterminal\nmonitor\nsuspend\nkill")
       command=$(echo -e "$list" | dmenu ${DMENU_PARAMS})
       launcher
       ;;
