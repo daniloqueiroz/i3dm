@@ -10,7 +10,7 @@ set -x
 
 source ${libs_file}
 
-DMENU_PARAMS="-b -i -p ❯ -fn Hack-9 -nb #0C1923 -nf #005D69 -sb #0C1923 -sf #00BCD4"
+DMENU_PARAMS="-b -i -p ❯ -fn Hack-11 -nb #000000 -nf #707070 -sb #000000 -sf #FFFFFF"
 
 function switchwindow() {
   ids=$(xprop -root |grep _NET_CLIENT_LIST_STACKING\(WINDOW\) |cut -d"#" -f2| tr -d " "|tr "," " ")
@@ -58,7 +58,7 @@ function launcher() {
         TMUX_CMD="tmux new -s bz"
       fi
 
-      /usr/bin/st -f "Source Code Pro:size=10" -T terminal $TMUX_CMD
+      /usr/bin/st -f "Source Code Pro:size=12" -T terminal $TMUX_CMD
       ;;
     "monitor")
       list=("auto\nsingle\nui\nmirror")
