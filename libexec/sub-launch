@@ -51,11 +51,13 @@ function launcher() {
       kill "$pid"
       ;;
     "terminal" | "console")
+      for i in $(tmux ls | grep "bz-" | grep -v "attached" | cut -d":" -f1); do tmux kill-session -t $i; done
       tmux has-session -t bz
       if [ $? -eq 0 ]; then
-        TMUX_CMD="tmux attach-session -t bz"
+        TMUX_CMD="tmux new -t bz"
       else
-        TMUX_CMD="tmux new -s bz"
+        tmux new-session -d  -s bz
+        TMUX_CMD="tmux new -t bz"
       fi
 
       /usr/bin/st -f "Source Code Pro:size=12" -T terminal $TMUX_CMD
