@@ -60,7 +60,7 @@ function launcher() {
         TMUX_CMD="tmux new -t bz"
       fi
 
-      /usr/bin/st -f "Source Code Pro:size=12" -T terminal $TMUX_CMD
+      /usr/bin/alacritty --command $TMUX_CMD
       ;;
     "monitor")
       list=("auto\nsingle\nui\nmirror")
